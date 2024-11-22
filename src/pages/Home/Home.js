@@ -24,7 +24,14 @@ function Home() {
 
     try {
       // Call API to check if records exist
-      const response = await fetch(`/api/moistureSensor/getDataByDeviceId?deviceId=${inputValue}`);
+      const response = await fetch(`/api/moistureSensor/getDataByDeviceId?deviceId=${inputValue}`,
+        {
+          method: 'GET',
+          headers: {
+            'Cache-Control': 'no-cache'
+          }
+        })
+    
       const data = await response.json();
 
       // Check if API returned no records message
