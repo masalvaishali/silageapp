@@ -91,23 +91,23 @@ function Home() {
               width: { xs: '100%', md: '63%' },
               height: '80vh',
               backgroundImage: `url(${image4})`,
-              backgroundSize: '55%',
+              backgroundSize: '60%',
               backgroundPosition: 'left',
               backgroundRepeat: 'no-repeat',
               color: 'black',
               display: 'flex',
-              justifyContent: 'right',
-              alignItems: 'center',
+              justifyContent: 'end',
+               alignItems: 'center',
               textAlign: 'center',
               boxShadow: 4, // Material UI shadow
               border: '1px solid #ddd', // Border for the card
               marginLeft: '6px',
-              paddingLeft: '40px',
+              paddingLeft: '50px',
             }}
           >
 
             {/* List of items */}
-            <List>
+            <List   style={{ marginTop: '-20px' }}>
               <Typography variant="h5" align="center" style={{
                 marginBottom: '20px', fontWeight: 'bold',
                 color: '#1976d2',
@@ -235,7 +235,7 @@ function Home() {
                 // margin: '0 auto',
               }}
             />
-            <h2 style={{marginBottom: '15px' }}>Device ID Navigation</h2>
+            <h2  style={{ marginTop: '-20px' }}>Device ID Navigation</h2>
             <Form className="w-100" style={{marginTop: '15px',}}>
               <Form.Group>
                 <Form.Label>Enter Device ID</Form.Label>

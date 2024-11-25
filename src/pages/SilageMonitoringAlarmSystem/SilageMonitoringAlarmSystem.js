@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
 import '../../styles/common.css';
 import { Spinner, Container, Card, Button, Table, Form } from 'react-bootstrap';
 import { calculateHourlyAverages, FilteredDateFormat, formatDateWithdateAndTime } from '../../Common/FilteredDateFormat';
@@ -26,10 +25,11 @@ import AirIcon from '@mui/icons-material/Air';
 import CloudIcon from '@mui/icons-material/Cloud';
 import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 import OpacityIcon from '@mui/icons-material/Opacity';
-// import ChemicalWeaponIcon from '@mui/icons-material/ChemicalWeaponIcon';
 import GrainIcon from '@mui/icons-material/Grain';
 import BlurOnIcon from '@mui/icons-material/BlurOn';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -63,6 +63,7 @@ function SilageMonitoringAlarmSystem() {
   const [dateRangeFilteredData, setDateRangeFilteredData] = useState([]);
   const [showChart, setShowChart] = useState(false); // State for chart visibility
   const [latestData, setLatestData] = useState(null);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   const handleFromDateClick = () => {
     fromDateRef.current.showPicker();
@@ -71,6 +72,22 @@ function SilageMonitoringAlarmSystem() {
   const handleToDateClick = () => {
     toDateRef.current.showPicker();
   };
+
+  const handleScroll = () => {
+    setShowBackToTop(window.scrollY > 300); // Show button after scrolling 300px
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navigateHome = () => navigate('/home');
+  const handleLogout = () => navigate('/');
 
 
   const currentDate = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
@@ -103,11 +120,6 @@ function SilageMonitoringAlarmSystem() {
         });
     }
   }, [deviceId]);
-
-  // const chartDataByCurrentDateData = (data, date) => {
-  //   const filtered = data.filter(item => item.createdAt.startsWith(date));
-  //   setFilterCurrentDateData(filtered);
-  // };
 
   // function to calculate hourly averages
   const filterDataByCurrentDateData = (data, date) => {
@@ -201,33 +213,6 @@ function SilageMonitoringAlarmSystem() {
   };
   
 
-  // const downloadCSV = () => {
-  //   if (!dateRangeFilteredData || dateRangeFilteredData.length === 0) return;
-
-  //   const csvContent = [
-  //     // Header row
-  //     Object.keys(dateRangeFilteredData[0]).map(key => columnNames[key] || key).join(','),
-
-  //     // Data rows with formatted 'createdAt' field
-  //     ...dateRangeFilteredData.map(row =>
-  //       Object.keys(row).map(key =>
-  //         key === 'createdAt' ? `"${formatDateWithdateAndTime(row[key])}"` : `"${row[key]}"`
-  //       ).join(',')
-  //     ),
-  //   ].join('\n');
-
-  //   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  //   const link = document.createElement('a');
-  //   const url = URL.createObjectURL(blob);
-  //   link.href = url;
-  //   link.setAttribute('download', `Filtered_Data_${deviceId}.csv`);
-  //   link.style.visibility = 'hidden';
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-  // };
-
-
   const handleGraphClick = (parameterKey) => {
     navigate(`/detailed-graph?deviceId=${deviceId}&parameter=${parameterKey}`);
   };
@@ -254,8 +239,22 @@ function SilageMonitoringAlarmSystem() {
   return (
     <Container className="mt-4">
       <Card className="mx-auto mb-3">
-        <Card.Header>
-          <h2>Sensor Data for Device {deviceId}</h2>
+      <Card.Header style={{ display: 'flex', alignItems: 'center' }}>
+          <Button 
+            variant="link" 
+            onClick={navigateHome} 
+            style={{ textDecoration: 'none', padding: 0, marginRight: '10px' }}
+          >
+            <ArrowBackIcon />
+          </Button>
+          <h2 style={{ margin: 0, flexGrow: 1 }}>Sensor Data for Device {deviceId}</h2>
+          <Button 
+            variant="primary" 
+            onClick={handleLogout} 
+            style={{ textDecoration: 'none' }}
+          >
+            Logout
+          </Button>
         </Card.Header>
         <Card.Body>
 
@@ -411,6 +410,16 @@ function SilageMonitoringAlarmSystem() {
           </Form>
         </Card.Body>
       </Card>
+      {showBackToTop && (
+        <Button
+         size='sm'
+          variant="primary"
+          onClick={scrollToTop}
+          className="backToTop"
+        >
+          <KeyboardArrowUpIcon />
+        </Button>
+      )}
       {showChart && filterCurrentDateData.length > 0 && (
         <div className="chart-grid">
           {Object.keys(columnNames)
