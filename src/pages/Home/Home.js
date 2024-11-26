@@ -97,17 +97,19 @@ function Home() {
               color: 'black',
               display: 'flex',
               justifyContent: 'end',
-               alignItems: 'center',
+              alignItems: 'center',
               textAlign: 'center',
-              boxShadow: 4, // Material UI shadow
-              border: '1px solid #ddd', // Border for the card
+              boxShadow: 4,
+              border: '1px solid #ddd',
               marginLeft: '6px',
-              paddingLeft: '50px',
             }}
           >
 
             {/* List of items */}
-            <List   style={{ marginTop: '-20px' }}>
+            <List   style={{ marginTop: '-20px',
+              marginLeft:'640px',
+              width:'100%'
+             }}>
               <Typography variant="h5" align="center" style={{
                 marginBottom: '20px', fontWeight: 'bold',
                 color: '#1976d2',
@@ -123,7 +125,7 @@ function Home() {
                     alt="soilmoistureSensor"
                     style={{
                       width: '30px',
-                      height: '40px',
+                      height: '30px',
                     }}
                   />
                 </ListItemIcon>
@@ -138,7 +140,7 @@ function Home() {
                     alt="soilmoistureSensor"
                     style={{
                       width: '30px',
-                      height: '40px',
+                      height: '30px',
                     }}
                   />
                 </ListItemIcon>
@@ -179,13 +181,14 @@ function Home() {
                 </Typography>
               </ListItem>
               <ListItem>
-              <ListItemIcon>
+              <ListItemIcon >
                   <img
                     src={siphoncPic}
                     alt="siphoncPic"
                     style={{
-                      width: '40px',
-                      height: '50px',
+                      width: '30px',
+                      height: '30px',
+                      paddingLeft:'0px'
                     }}
                   />
                 </ListItemIcon>
@@ -195,7 +198,7 @@ function Home() {
               </ListItem>
               <ListItem>
                 <ListItemIcon>
-                  <i className="fa fa-tint" style={{ fontSize: '24px', color: '#1976d2' }}></i> {/* Water Drop icon */}
+                  <i className="fa fa-tint" style={{ fontSize: '35px', color: '#1976d2' }}></i> {/* Water Drop icon */}
                 </ListItemIcon>
                 <Typography className='list-font'>
                   Water Meter
@@ -213,11 +216,10 @@ function Home() {
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-              padding: '16px',
+              paddingTop: '0px',
               boxShadow: 3,
               border: '1px solid #ddd',
-              marginRight: '5px'
-             
+              marginRight: '5px',
             }}
           >
             <img
@@ -226,17 +228,11 @@ function Home() {
               style={{
                 width: '200px',
                 height: '80px',
-                marginBottom: '90px',
-                // marginRight: '10px',
-                // // marginBottom: '40px',
-                // display: 'flex',
-                // justifyContent: 'center',
-                // alignItems: 'center',
-                // margin: '0 auto',
+                marginTop: '-140px',
               }}
             />
-            <h2  style={{ marginTop: '-20px' }}>Device ID Navigation</h2>
-            <Form className="w-100" style={{marginTop: '15px',}}>
+            <h2 style={{marginTop: '15px'}}>Device ID Navigation</h2>
+            <Form className="w-100" style={{marginTop: '15px'}}>
               <Form.Group>
                 <Form.Label>Enter Device ID</Form.Label>
                 <Form.Control
