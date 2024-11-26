@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { Card, Typography } from '@mui/material';
@@ -16,8 +16,25 @@ import siphoncPic from "../../Images/siphonPic.png";
 
 function Home() {
   const [inputValue, setInputValue] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); // State for displaying error message
+  const [errorMessage, setErrorMessage] = useState(''); 
   const navigate = useNavigate();
+
+
+  
+
+  useEffect(() => {
+    window.history.pushState(null, null, window.location.pathname);
+
+    const handlePopState = (event) => {
+      window.history.pushState(null, null, window.location.pathname);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
 
   const handleClick = async () => {
     const prefix = inputValue.substring(0, 4).toUpperCase();
@@ -68,10 +85,10 @@ function Home() {
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent the default action (form submission)
-      handleClick(); // Trigger the handleClick function
+      e.preventDefault(); 
+      handleClick(); 
     } else if (e.key === 'Tab') {
-      handleClick(); // Trigger the handleClick function on Tab as well
+      handleClick();
     }
   };
 

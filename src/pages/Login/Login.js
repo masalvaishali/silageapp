@@ -14,16 +14,20 @@ import RahuriLogo from "../../Images/Rahuri-logo.png"
 import BackgroundImage from "../../Images/login-background.jpeg";
 import cowpic from "../../Images/cowpic.jpg"
 
-const STATIC_USERNAME = "icrtc_user";
-const STATIC_PASSWORD = "icrtc@MPKV_14680U";
+// const STATIC_USERNAME = "icrtc_user";
+// const STATIC_PASSWORD = "icrtc@MPKV_14680U";
+const STATIC_USERNAME = "admin";
+const STATIC_PASSWORD = "admin123";
+
 
 const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+console.log("setIsAuthenticated---",setIsAuthenticated)
   const handleLogin = (e) => {
+
     e.preventDefault();
     if (username === STATIC_USERNAME && password === STATIC_PASSWORD) {
       setIsAuthenticated(true);
@@ -58,9 +62,9 @@ const Login = ({ setIsAuthenticated }) => {
   style={{
     padding: '30px',
     position: 'relative',
-    overflow: 'visible', // Allow content to extend outside the card
-    backgroundColor: 'rgba(211, 211, 211, 0.9)', // Set the background color with 50% transparency
-    boxShadow: '0 8px 8px rgba(0, 0, 0, 0.1)', // Optional: subtle shadow for better contrast
+    overflow: 'visible',
+    backgroundColor: 'rgba(211, 211, 211, 0.9)',
+    boxShadow: '0 8px 8px rgba(0, 0, 0, 0.1)', 
     borderRadius: '20px',
     
   }}
@@ -69,10 +73,10 @@ const Login = ({ setIsAuthenticated }) => {
   <Box
     style={{
       position: 'absolute',
-      top: '-50px', // Position the logo so it extends above the card
+      top: '-50px',
       left: '50%',
-      transform: 'translateX(-50%)', // Center the logo horizontally
-      zIndex: 1, // Ensure it appears above the card
+      transform: 'translateX(-100%)',
+      zIndex: 1,
     }}
   >
     <img

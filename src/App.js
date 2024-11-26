@@ -10,27 +10,24 @@ import DetailedGraph from './Common/DetailedGraph';
 import LargeGraph from './Common/LargeGraph';
 import Login from './pages/Login/Login';
 import { useState } from 'react';
+import PrivateRoute from './pages/PrivateRoute/PrivateRoute';
 
-// Higher-Order Component for Private Routes
-const PrivateRoute = ({ isAuthenticated, children }) => {
-  return isAuthenticated ? children : <Navigate to="/" />;
-};
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const savedAuthStatus = localStorage.getItem('isAuthenticated');
-    return savedAuthStatus === 'true'; // Return true if it's set to 'true' in localStorage
+    const savedAuthStatus = sessionStorage.getItem('isAuthenticated');
+    return savedAuthStatus === 'true'; // Return true if it's set to 'true' in sessionStorage
   });
 
   const handleLogin = () => {
     setIsAuthenticated(true);
-    localStorage.setItem('isAuthenticated', 'true');
+    sessionStorage.setItem('isAuthenticated', 'true');
   };
 
-  // When the user logs out, remove the authentication status from localStorage
+  // When the user logs out, remove the authentication status from sessionStorage
   const handleLogout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('isAuthenticated');
+    sessionStorage.removeItem('isAuthenticated');
   };
 
   return (

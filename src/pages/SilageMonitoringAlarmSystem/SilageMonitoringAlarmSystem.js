@@ -87,7 +87,12 @@ function SilageMonitoringAlarmSystem() {
   }, []);
 
   const navigateHome = () => navigate('/home');
-  const handleLogout = () => navigate('/');
+  // const handleLogout = () => navigate('/');
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('isAuthenticated');
+    navigate('/');
+  };
 
 
   const currentDate = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
